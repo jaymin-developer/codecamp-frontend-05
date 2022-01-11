@@ -10,7 +10,7 @@ export default function StateSginup(){
     function aaa(event){
         // event.target => <input type="text" /> 태그 전체를 가져옴
         console.log(event.target.value) // => 해당 태그의 값을 가져옴
-        setEmail(event.target.value) //
+        setEmail(event.target.value) ///
     }
 
     function bbb(event){
