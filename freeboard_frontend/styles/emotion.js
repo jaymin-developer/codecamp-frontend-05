@@ -190,3 +190,9 @@ export const ResInput480 = styled.textarea`
     padding: 14px 16px 14px 16px;
     resize: none;
 `
+export const Message = styled.div`
+    margin: 0px 0px 0px 0px;
+    color: red;
+    font-size: 10px;
+    opacity: 90%;
+`

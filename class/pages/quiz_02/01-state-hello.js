@@ -10,11 +10,10 @@ export default function StateHello() {
 
     return (        
         <div>
-            <div>{qqq}</div>
-            <button onClick={zzz}>클릭!!</button>
+            <button onClick={zzz}>{qqq}</button>
         </div>
     )
 
 }
 
-// let, const -> html로 연결 X
+// let, const -> html로 연결
