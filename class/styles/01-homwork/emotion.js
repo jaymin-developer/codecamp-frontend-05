@@ -40,7 +40,7 @@ export const Search = styled.image`
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    image: url(../../01-homework/ic-28-arrow.png);
+
 `
 
 
