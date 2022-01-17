@@ -40,6 +40,7 @@ export default function GraphqlMutationProduct() {
             detail: myProductDetail,
             price: Number(myProductPrice),
             // Number로 먹히기
+            // 같으면 똑같이 seller : seller,
           },
         },
       });

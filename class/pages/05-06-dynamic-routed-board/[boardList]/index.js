@@ -40,5 +40,5 @@ export default function dynamicRoutedPage() {
   );
 }
 
-// 조건부 렌더링 data && data.fetchBoard.writer data가 잇으면
+// 조건부 렌더링 data && data.fetchBoard.writer data가 잇으면 오른쪽, 없으면 왼쪽
 // data? 옵셔널 체이닝
