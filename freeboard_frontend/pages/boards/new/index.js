@@ -155,7 +155,7 @@ export default function Newpage() {
       setErrorAddress(" ");
     }
 
-    console.log(name, password, title, content, address);
+    // console.log(name, password, title, content, address);
     if (name && password && title && content && address) {
       onClickSubmit();
       alert(submitMessage);
