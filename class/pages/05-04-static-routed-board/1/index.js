@@ -1,3 +1,7 @@
-export default function Page1() {
-  return <>1번 페이지입니다.</>;
+export default function StaticRoutedPage(){
+
+    return (
+        <div>1번 게시글 페이지 이동완료!!!</div>
+    )
+
 }

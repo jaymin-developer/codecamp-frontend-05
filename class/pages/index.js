@@ -3,10 +3,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
-
-  // 자바스크립트 들어가는 부분
   return (
-    // html 들어가는 부분
     <div className={styles.container}>
       <Head>
         <title>Create Next App</title>
@@ -16,7 +13,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Code Camp</a>
+          12348791347Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
 
         <p className={styles.description}>
