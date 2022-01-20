@@ -37,9 +37,9 @@ export default function BoardsListUI() {
           <S.Row>
             {/* 인덱스를 키로 주지 말자 */}
             <S.Number>번호</S.Number>
-            <S.Title>{/* {el.writer} */}제목</S.Title>
-            <S.Writer>{/* {el.title} */}작성자</S.Writer>
-            <S.CreatedAt>{/* {el.createdAt} */}날짜</S.CreatedAt>
+            <S.Title>제목</S.Title>
+            <S.Writer>작성자</S.Writer>
+            <S.CreatedAt>날짜</S.CreatedAt>
           </S.Row>
           {data?.fetchBoards.map((el, index) => (
             <S.Row1 key={el._id}>

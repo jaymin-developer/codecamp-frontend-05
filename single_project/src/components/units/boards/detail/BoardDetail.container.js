@@ -1,19 +1,40 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import BoardDetailUI from "./BoardDetail.presenter";
-import { FETCH_BOARD } from "./BoardDetail.queries";
+import { DELETE_BOARD, FETCH_BOARD } from "./BoardDetail.queries";
 
 export default function BoardDetail() {
   const router = useRouter();
   const [comment, setComment] = useState("");
   const [limitNumber, setLimitNumber] = useState(0);
-
   const [errorComment, setErrorComment] = useState("");
 
+  const [deleteBoard] = useMutation(DELETE_BOARD);
+
   const { data } = useQuery(FETCH_BOARD, {
-    variables: { boardId: String(router.query.Detail) },
+    variables: { boardId: String(router.query.detail) },
   });
+
+  const onClickMoveToList = () => {
+    router.push("/boards");
+  };
+
+  const onClickMoveToEdit = () => {
+    router.push(`/boards/${router.query.detail}/edit`);
+  };
+
+  const onClickDelete = async () => {
+    try {
+      await deleteBoard({
+        variables: { boardId: String(router.query.detail) },
+      });
+      alert("삭제가 완료되었습니다.");
+      router.push(`/boards`);
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   const onChangeComment = (event) => {
     setComment(event.target.value);
@@ -32,6 +53,9 @@ export default function BoardDetail() {
       data={data}
       limitNumber={limitNumber}
       errorComment={errorComment}
+      onClickMoveToList={onClickMoveToList}
+      onClickMoveToEdit={onClickMoveToEdit}
+      onClickDelete={onClickDelete}
       onChangeComment={onChangeComment}
     ></BoardDetailUI>
   );

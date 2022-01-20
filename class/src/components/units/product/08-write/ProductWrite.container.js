@@ -35,7 +35,7 @@ export default function ProductWrite(props) {
     console.log("수정하기를 클릭하셨군요!!!");
     const result = await updateProduct({
       variables: {
-        productId: String(router.query.myid),
+        productId: router.query.myid,
         updateProductInput: {
           name: name,
           detail: detail,

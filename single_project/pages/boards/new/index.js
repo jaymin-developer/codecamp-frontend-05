@@ -1,7 +1,7 @@
 import BoardWrite from "../../../src/components/units/boards/write/BoardWrite.container";
 
 export default function BoardsNew() {
-  return <BoardWrite></BoardWrite>;
+  return <BoardWrite isEdit={false}></BoardWrite>;
 }
 // import {
 //   Address,
