@@ -8,12 +8,12 @@ export const CREATE_BOARD = gql`
   }
 `;
 
-const FETCH_BOARD = gql`
-  query fetchBoards {
-    fetchBoards {
+export const FETCH_BOARD = gql`
+  query fetchBoard {
+    fetchBoard {
       _id
-      title
       writer
+      title
       createdAt
     }
   }

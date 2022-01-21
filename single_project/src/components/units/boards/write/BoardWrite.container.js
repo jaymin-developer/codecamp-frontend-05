@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import BoardWriteUI from "./BoardWrite.presenter";
-import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
+import { CREATE_BOARD, UPDATE_BOARD, FETCH_BOARD } from "./BoardWrite.queries";
 
 export default function BoardWrite(props) {
   const router = useRouter();
@@ -27,6 +27,11 @@ export default function BoardWrite(props) {
   const [createBoard] = useMutation(CREATE_BOARD);
   const [updateBoard] = useMutation(UPDATE_BOARD);
 
+  const { data } = useQuery(FETCH_BOARD, {
+    variables: { boardId: String(router.query.detail) },
+  });
+  // console.log(router.query);
+
   function onChangeWriter(event) {
     setWriter(event.target.value);
     if (event.target.value !== "") {
@@ -38,7 +43,7 @@ export default function BoardWrite(props) {
       event.target.value &&
       password.length >= 4 &&
       title &&
-      contents.length >= 300
+      contents.length >= 100
     ) {
       setIsActive(true);
     } else {
@@ -56,7 +61,7 @@ export default function BoardWrite(props) {
       writer &&
       event.target.value.length >= 4 &&
       title &&
-      contents.length >= 300
+      contents.length >= 100
     ) {
       setIsActive(true);
     } else {
@@ -74,7 +79,7 @@ export default function BoardWrite(props) {
       writer &&
       password.length >= 4 &&
       event.target.value &&
-      contents.length >= 300
+      contents.length >= 100
     ) {
       setIsActive(true);
     } else {
@@ -84,18 +89,18 @@ export default function BoardWrite(props) {
 
   function onChangeContents(event) {
     setContents(event.target.value);
-    if (event.target.value.length > 299) {
+    if (event.target.value.length >= 100) {
       setContentsError("");
       setContentsBorderColor("");
     }
-    if (writer && password.length >= 4 && title && event.target.value >= 300) {
+    if (writer && password.length >= 4 && title && event.target.value >= 100) {
       setIsActive(true);
     } else {
       setIsActive(false);
     }
   }
 
-  async function onClikSubmit() {
+  async function onClickSubmit() {
     if (!writer) {
       setWriterError("작성자를 입력해주세요.");
       setWriterBorderColor("1px solid red");
@@ -108,11 +113,11 @@ export default function BoardWrite(props) {
       setTitleError("제목을 입력해주세요.");
       setTitleBorderColor("1px solid red");
     }
-    if (contents.length < 300) {
-      setContentsError("300자 이상 입력해주세요.");
+    if (contents.length < 100) {
+      setContentsError("100 이상 입력해주세요.");
       setContentsBorderColor("1px solid red");
     }
-    if (writer && password.length >= 4 && title && contents.length >= 300) {
+    if (writer && password.length >= 4 && title && contents.length >= 100) {
       try {
         alert("게시글이 등록되었습니다.");
         const result = await createBoard({
@@ -134,18 +139,28 @@ export default function BoardWrite(props) {
 
   async function onClickUpdate() {
     try {
+      const myVariables = {
+        boardId: router.query.detail,
+        password,
+        updateBoardInput: {},
+      };
+
+      if (title) myVariables.updateBoardInput.title = title;
+      if (contents) myVariables.updateBoardInput.contents = contents;
+
       await updateBoard({
-        variables: {
-          boardId: router.query.detial,
-          password,
-          updateBoardInput: {
-            title,
-            contents,
-          },
-        },
+        variables: myVariables,
+        // {
+        //   boardId: router.query.detail,
+        //   password,
+        //   updateBoardInput: {
+        //     title,
+        //     contents,
+        //   },
+        // },
       });
       alert("수정이 완료되었습니다.");
-      router.push(`/borads/${router.query.Drtail}`);
+      router.push(`/boards/${router.query.detail}`);
     } catch (error) {
       alert(error.message);
     }
@@ -153,6 +168,7 @@ export default function BoardWrite(props) {
 
   return (
     <BoardWriteUI
+      data={data}
       isEdit={props.isEdit}
       isActive={isActive}
       writerError={writerError}
@@ -167,7 +183,7 @@ export default function BoardWrite(props) {
       onChangePassword={onChangePassword}
       onChangeTitle={onChangeTitle}
       onChangeContents={onChangeContents}
-      onClikSubmit={onClikSubmit}
+      onClickSubmit={onClickSubmit}
       onClickUpdate={onClickUpdate}
     ></BoardWriteUI>
   );

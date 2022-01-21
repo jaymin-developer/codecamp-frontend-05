@@ -1,6 +1,8 @@
 import * as S from "./BoardWrite.styles";
 
 export default function BoardWriteUI(props) {
+  console.log(props.data);
+
   return (
     <S.Wrapper>
       <S.Title>{props.isEdit ? "게시판 수정" : "게시판 등록"}</S.Title>
@@ -11,6 +13,7 @@ export default function BoardWriteUI(props) {
             type="text"
             placeholder="이름을 적어주세요."
             onChange={props.onChangeWriter}
+            defaultValue={props.isEdit ? props.data?.fetchBoard.writer : ""}
             style={{
               border: props.writerBorderColor,
             }}
@@ -36,6 +39,7 @@ export default function BoardWriteUI(props) {
           type="text"
           placeholder="제목을 작성해주세요"
           onChange={props.onChangeTitle}
+          defaultValue={props.isEdit ? props.data?.fetchBoard.title : ""}
           style={{
             border: props.titleBorderColor,
           }}
@@ -45,8 +49,9 @@ export default function BoardWriteUI(props) {
       <S.InputWrapper>
         <S.Label>내용</S.Label>
         <S.Contents
-          placeholder="내용을 300자 이상 작성해주세요"
+          placeholder="내용을 100자 이상 작성해주세요"
           onChange={props.onChangeContents}
+          defaultValue={props.isEdit ? props.data?.fetchBoard.contents : ""}
           style={{
             border: props.contentsBorderColor,
           }}
@@ -90,7 +95,7 @@ export default function BoardWriteUI(props) {
       </S.OptionWrapper>
       <S.ButtonWrapper>
         <S.SubmitButton
-          onClick={props.isEdit ? props.onClickUpdate : props.onClikSubmit}
+          onClick={props.isEdit ? props.onClickUpdate : props.onClickSubmit}
           isActive={props.isActive}
         >
           {props.isEdit ? "수정하기" : "등록하기"}
