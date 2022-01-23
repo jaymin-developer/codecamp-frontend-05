@@ -16,3 +16,23 @@ export const DELETE_BOARD = gql`
     deleteBoard(boardId: $boardId)
   }
 `;
+
+export const CREATE_BOARD_COMMENT = gql`
+  mutation createBoardCommentInput(
+    $createBoardCommentInput: createBoardCommentInput
+    $boardId: ID!
+  ) {
+    createBoardCommentInput(
+      createBoardCommentInput: $createBoardCommentInput
+      boardId: $boardId
+    ) {
+      _id
+      writer
+      contents
+      rating
+      user
+      createdAt
+      updateAt
+    }
+  }
+`;

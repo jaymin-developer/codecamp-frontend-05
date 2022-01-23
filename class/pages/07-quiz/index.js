@@ -40,6 +40,7 @@ export default function MapCheckboxPage() {
 
   function onChangeCheck(event) {
     // setChecked(event.target.checked);
+    console.log(select);
     if (event.target.checked) {
       setSelect(select.concat(event.target.id));
     } else {

@@ -1,5 +1,6 @@
 import * as S from "./BoardDetail.styles";
 import { getMyDate } from "../../../../commons/libraries/utils";
+import BoardDetail from "./comment/CommentWrite.container";
 
 export default function BoardDetailUI(props) {
   return (
@@ -35,7 +36,8 @@ export default function BoardDetailUI(props) {
         <S.Button onClick={props.onClickMoveToEdit}>수정하기</S.Button>
         <S.Button onClick={props.onClickDelete}>삭제하기</S.Button>
       </S.BottomWrapper>
-      <S.CommentBox>
+      <BoardDetail></BoardDetail>
+      {/* <S.CommentBox>
         <S.CommentInputBox>
           댓글
           <div>
@@ -56,7 +58,17 @@ export default function BoardDetailUI(props) {
             </S.CommentFoot>
           </S.InputBox>
         </S.CommentInputBox>
-      </S.CommentBox>
+        <CommentList>
+        {data?.fetchBoards.map((el, index) => (
+                <Row key={index}>
+                    <Column><input type="checkbox" /></Column>
+                    <Column>{el.number}</Column>
+                    <Column>{el.title}</Column>
+                    <Column>{el.writer}</Column>
+                    <Column>{el.createdAt}</Column>
+                </Row>))}
+        </CommentList>
+      </S.CommentBox> */}
     </S.Wrapper>
   );
 }

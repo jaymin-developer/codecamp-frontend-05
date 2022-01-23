@@ -1,9 +1,11 @@
-import styled from '@emotion/styled'
+import styled from "@emotion/styled";
 
 export const MyTitle = styled.div`
-    color: red;
-`
+  color: red;
+`;
 
 export const MyEmail = styled.div`
-    color: red;
-`
+  color: red;
+`;
+
+export const Profile = styled.div``;

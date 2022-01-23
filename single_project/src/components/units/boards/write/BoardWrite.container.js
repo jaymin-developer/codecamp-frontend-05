@@ -31,6 +31,7 @@ export default function BoardWrite(props) {
     variables: { boardId: String(router.query.detail) },
   });
   // console.log(router.query);
+  // console.log(router.query.detail);
 
   function onChangeWriter(event) {
     setWriter(event.target.value);
