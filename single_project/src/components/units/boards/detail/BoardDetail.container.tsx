@@ -5,39 +5,25 @@ import BoardDetailUI from "./BoardDetail.presenter";
 import {
   DELETE_BOARD,
   FETCH_BOARD,
+  LIKE_BOARD,
+  DISLIKE_BOARD
   // CREATE_BOARD_COMMENT,
 } from "./BoardDetail.queries";
+import { useState } from "react";
 
 export default function BoardDetail() {
   const router = useRouter();
 
-  // const [isActive, setIsActive] = useState(false);
-
-  // const [writer, setWriter] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [contents, setContents] = useState("");
-
-  // const [writerError, setWriterError] = useState("");
-  // const [passwordError, setPasswordError] = useState("");
-  // const [limitNumber, setLimitNumber] = useState(0);
-  // const [errorContents, setErrorContents] = useState("");
-  // const [contentsError, setContentsError] = useState("");
-
-  // const [writerBorderColor, setWriterBorderColor] = useState("");
-  // const [passwordBorderColor, setPasswordBorderColor] = useState("");
-  // const [contentsBorderColor, setContentsBorderColor] = useState("");
-
+  const [likeBoard] = useMutation(LIKE_BOARD);
+  const [dislikeBoard] = useMutation(DISLIKE_BOARD)
   const [deleteBoard] = useMutation(DELETE_BOARD);
-  // const [createBoardCommentInput] = useMutation(CREATE_BOARD_COMMENT);
+  const [likeCount, setLikeCount] = useState(0)
 
   const { data } = useQuery(FETCH_BOARD, {
     variables: { boardId: String(router.query.detail) },
   });
 
-  // const { data:aaa } = useQuery(FETCH_COMMENT, {
-  //   variables: { boardId: String(router.query.detail) },
-  // });
-
+  console.log(data)
   const onClickMoveToList = () => {
     router.push("/boards");
   };
@@ -57,6 +43,47 @@ export default function BoardDetail() {
       alert(error.message);
     }
   };
+
+  const onClickLike = async () => {
+    try {
+      await likeBoard({
+        variables: { boardId: String(router.query.detail) },
+        refetchQueries: [
+          {
+            query: FETCH_BOARD,
+            variables: { boardId: router.query.detail },
+          },
+        ]
+      });
+      
+      alert("좋아요를 누르셨습니다.");
+      setLikeCount(data?.fetchBoard.likeCount + 1)
+      
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  const onClickDislike = async () => {
+    try {
+      await dislikeBoard({
+        variables: { boardId: String(router.query.detail) },
+        refetchQueries: [
+          {
+            query: FETCH_BOARD,
+            variables: { boardId: router.query.detail },
+          },
+        ]
+      });
+      
+      alert("싫어요를 누르셨습니다.");
+      setLikeCount(data?.fetchBoard.dislikeCount + 1)
+      
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
 
   // const onChangeContents = (event) => {
   //   setContents(event.target.value);
@@ -164,6 +191,8 @@ export default function BoardDetail() {
       // onChangePassword={onChangePassword}
       // onChangeContents={onChangeContents}
       onClickDelete={onClickDelete}
+      onClickLike={onClickLike}
+      onClickDislike={onClickDislike}
       // onClickSubmit={onClickSubmit}
     ></BoardDetailUI>
   );

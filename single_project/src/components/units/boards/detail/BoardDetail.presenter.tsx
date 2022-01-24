@@ -1,8 +1,11 @@
 import * as S from "./BoardDetail.styles";
 import { getMyDate } from "../../../../commons/libraries/utils";
 import BoardDetail from "./comment/CommentWrite.container";
+import ReactPlayer from 'react-player'
 
 export default function BoardDetailUI(props) {
+const youtubeUrl = `"${props.data?.fetchBoard.youtubeUrl}"`
+console.log(props.data)
   return (
     <S.Wrapper>
       <S.CardWrapper>
@@ -25,9 +28,12 @@ export default function BoardDetailUI(props) {
         <S.Body>
           <S.Title>{props.data?.fetchBoard.title}</S.Title>
           <S.Contents>{props.data?.fetchBoard.contents}</S.Contents>
+          <S.Youtube>
+          <ReactPlayer url={youtubeUrl} playing={true} width={800} height={600}  muted={true} controls={true}/>
+          </S.Youtube>
           <S.LikeWrapper>
-            {/* <Like>좋아요</Like>
-          <Dislike></Dislike> */}
+            <S.Like><S.LikeIcon src="/images/board/detail/like.png" onClick={props.onClickLike}/>{props.data?.fetchBoard.likeCount}</S.Like>
+            <S.Dislike><S.DislikeIcon src="/images/board/detail/dislike.png" onClick={props.onClickDislike}/>{props.data?.fetchBoard.dislikeCount}</S.Dislike>
           </S.LikeWrapper>
         </S.Body>
       </S.CardWrapper>
@@ -37,38 +43,6 @@ export default function BoardDetailUI(props) {
         <S.Button onClick={props.onClickDelete}>삭제하기</S.Button>
       </S.BottomWrapper>
       <BoardDetail></BoardDetail>
-      {/* <S.CommentBox>
-        <S.CommentInputBox>
-          댓글
-          <div>
-            <S.WriterInput placeholder="작성자"></S.WriterInput>
-            <S.PasswordInput placeholder="비밀번호"></S.PasswordInput> 별점
-          </div>
-          <S.InputBox>
-            <S.CommentInput
-              type="textarea"
-              placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
-              onChange={props.onChangeComment}
-            ></S.CommentInput>
-            <S.CommentFoot>
-              <S.LimitLetter>
-                {props.limitNumber}/100 <S.Error>{props.errorComment}</S.Error>
-              </S.LimitLetter>
-              <S.InputButton>등록하기</S.InputButton>
-            </S.CommentFoot>
-          </S.InputBox>
-        </S.CommentInputBox>
-        <CommentList>
-        {data?.fetchBoards.map((el, index) => (
-                <Row key={index}>
-                    <Column><input type="checkbox" /></Column>
-                    <Column>{el.number}</Column>
-                    <Column>{el.title}</Column>
-                    <Column>{el.writer}</Column>
-                    <Column>{el.createdAt}</Column>
-                </Row>))}
-        </CommentList>
-      </S.CommentBox> */}
     </S.Wrapper>
   );
 }

@@ -71,10 +71,54 @@ export const Contents = styled.div`
   padding: 40px 20px 120px 20px;
 `;
 
-export const LikeWrapper = styled.div`
+export const Youtube = styled.div`
   width: 100%;
   display: flex;
+  flex-direction: row;
+  justify-content: center;
+`
+
+export const LikeWrapper = styled.div`
+  margin-top: 10%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 `;
+
+export const Like = styled.div`
+  width: 40px;
+  height: 51px;
+  margin-right: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const LikeIcon =styled.img`
+width: 20px;
+height: 20px;
+:hover {
+  cursor: pointer;
+}
+`
+
+export const Dislike = styled.div`
+  width: 40px;
+  height: 51px;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const DislikeIcon =styled.img`
+width: 20px;
+height: 20px;
+cursor: pointer;
+`
 
 export const BottomWrapper = styled.div`
   display: flex;

@@ -13,6 +13,7 @@ export default function BoardWrite(props) {
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
+  const [youtubeUrl, setYoutubeUrl] = useState("");
 
   const [writerError, setWriterError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -30,8 +31,6 @@ export default function BoardWrite(props) {
   const { data } = useQuery(FETCH_BOARD, {
     variables: { boardId: String(router.query.detail) },
   });
-  // console.log(router.query);
-  // console.log(router.query.detail);
 
   function onChangeWriter(event) {
     setWriter(event.target.value);
@@ -101,6 +100,10 @@ export default function BoardWrite(props) {
     }
   }
 
+  function onChangeYoutubeUrl(event) {
+    setYoutubeUrl(event.target.value);
+  }
+
   async function onClickSubmit() {
     if (!writer) {
       setWriterError("작성자를 입력해주세요.");
@@ -128,9 +131,11 @@ export default function BoardWrite(props) {
               password: password,
               title: title,
               contents: contents,
+              youtubeUrl: youtubeUrl,
             },
           },
         });
+        console.log(data);
         router.push(`/boards/${result.data.createBoard._id}`);
       } catch (error) {
         console.log(error.message);
@@ -186,6 +191,7 @@ export default function BoardWrite(props) {
       onChangeContents={onChangeContents}
       onClickSubmit={onClickSubmit}
       onClickUpdate={onClickUpdate}
+      onChangeYoutubeUrl={onChangeYoutubeUrl}
     ></BoardWriteUI>
   );
 }
