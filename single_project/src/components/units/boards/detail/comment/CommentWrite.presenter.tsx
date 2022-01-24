@@ -1,5 +1,5 @@
 import * as S from "./CommentWrite.styles";
-// import { getMyDate } from "../../../../commons/libraries/utils";
+import { getMyDate } from "../../../../../commons/libraries/utils";
 
 export default function CommentWriteUI(props) {
   return (
@@ -38,21 +38,22 @@ export default function CommentWriteUI(props) {
           </S.CommentFoot>
         </S.InputBox>
       </S.CommentInputBox>
-      {props.data?.fetchBoardComments.map((el, index) => (
-        <S.CommentList key={index}>
+      {props.data?.fetchBoardComments.map((el) => (
+        <S.CommentList key={el._id}>
           <S.CommentProfile src="/images/board/detail/profile.png" />
           <S.CommentListColumn>
             <S.CommentWriter>
-              {el.writer} <S.CommentRating>평점 : {el.rating}</S.CommentRating>
+              {el?.writer} <S.CommentRating>평점 : {el?.rating}</S.CommentRating>
             </S.CommentWriter>
-            <S.CommentContents>{el.contents}</S.CommentContents>
-            <S.CommentDate>{el.createdAt}</S.CommentDate>
+            <S.CommentContents>{el?.contents}</S.CommentContents>
+            <S.CommentDate>{getMyDate(el?.createdAt)}</S.CommentDate>
           </S.CommentListColumn>
           <S.CommentListIcon>
             <S.Rewrite src="/images/board/detail/rewrite.png"></S.Rewrite>
             <S.Delete
-              onClick={props.onClickDelete}
+              id={el._id}
               src="/images/board/detail/delete.png"
+              onClick={props.onClickDelete}
             ></S.Delete>
           </S.CommentListIcon>
         </S.CommentList>
@@ -60,3 +61,23 @@ export default function CommentWriteUI(props) {
     </S.CommentBox>
   );
 }
+
+// {props.data?.fetchBoardComments.map((el) => (
+//     <C.Comment key = {el._id}>
+//       <C.CommentInfo>
+//         <C.Writer>{el.writer}</C.Writer>
+//         <C.wrapper>
+//           <C.buttonUpdate onClick={props.updateComment}>수정</C.buttonUpdate>
+//           <C.buttonDelete onClick={props.deleteComment} id={el._id}>삭제</C.buttonDelete>
+//           <div>
+//             <input onChange={props.changePs} placeholder="password" />
+//           </div>
+//         </C.wrapper>
+
+//       </C.CommentInfo>
+//       <C.content>{el.contents}</C.content>
+
+//       <C.date>{(el.createdAt).slice(0,10)}</C.date>
+//     </C.Comment>
+
+//   ))}

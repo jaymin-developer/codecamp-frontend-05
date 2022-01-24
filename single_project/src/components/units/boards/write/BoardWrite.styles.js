@@ -167,7 +167,6 @@ export const SubmitButton = styled.button`
   font-weight: 500;
   margin-left: 12px;
   margin-right: 12px;
-  color: white;
   background-color: ${(props) => (props.isActive ? "#ffd600" : "none")};
 
   :hover {

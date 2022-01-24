@@ -16,12 +16,11 @@ export default function CommentWrite() {
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
   const [contents, setContents] = useState("");
-  const [commentId, setCommentID] = useState([]);
 
   const [limitNumber, setLimitNumber] = useState(0);
 
   const [createBoardCommentInput] = useMutation(CREATE_BOARD_COMMENT);
-  const [deleteBoardCommentInput] = useMutation(DELETE_BOARD_COMMENT);
+  const [deleteBoardComment] = useMutation(DELETE_BOARD_COMMENT);
 
   const { data } = useQuery(FETCH_BOARD_COMMENTS, {
     variables: { boardId: router.query.detail },
@@ -77,41 +76,33 @@ export default function CommentWrite() {
             },
           ],
         });
-        setCommentID(result?.data?.createBoardComment._id);
-        // console.log(result.data);
       } catch (error) {
         console.log(error.message);
       }
     }
   }
 
-  //   console.log(commentId);
-  //   console.log(data?.fetchBoardComments.values("_id"));
-  //   {data?.fetchBoards.map((el, index) =>(
-  //     key={index}
-  const onClickDelete = async () =>
-    //   { if(q){
-    {
-      try {
-        await deleteBoardCommentInput({
-          variables: {
-            password: password,
-            boardCommentId: commentId,
+  async function onClickDelete(event) {
+    const password = prompt("비밀번호를 입력하세요.");
+    try {
+      await deleteBoardComment({
+        variables: {
+          password: password,
+          boardCommentId: event.target.id,
+        },
+        refetchQueries: [
+          {
+            query: FETCH_BOARD_COMMENTS,
+            variables: { boardId: router.query.detail },
           },
-          refetchQueries: [
-            {
-              query: FETCH_BOARD_COMMENTS,
-              variables: { boardId: router.query.detail },
-            },
-          ],
-        });
-        alert("삭제가 완료되었습니다.");
-      } catch (error) {
-        alert(error.message);
-      }
-    };
-  // };
-  //   ))}
+        ],
+      });
+    } catch (error) {
+
+    }
+  }
+
+
 
   //   async function onClickUpdate() {
   //     try {

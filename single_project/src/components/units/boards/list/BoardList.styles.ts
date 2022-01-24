@@ -139,6 +139,19 @@ export const CreatedAt1 = styled.div`
 
 export const ListFoot = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  padding-top: 40px;
 `;
 export const PageNation = styled.div``;
-export const SubmitButton = styled.div``;
+export const SubmitButton = styled.button`
+  width: 171px;
+  height: 52px;
+  background-color: white;
+  border: 1px solid #f2f2f2;
+  border-radius: 10px;
+  cursor: pointer;
+
+  :hover {
+    background-color: #f5f2fc};
+`;

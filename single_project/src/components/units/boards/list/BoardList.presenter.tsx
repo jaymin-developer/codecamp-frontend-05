@@ -12,7 +12,7 @@ const FETCH_BOARD = gql`
   }
 `;
 
-export default function BoardsListUI() {
+export default function BoardsListUI(props) {
   const { data } = useQuery(FETCH_BOARD);
 
   return (
@@ -53,7 +53,7 @@ export default function BoardsListUI() {
         </S.ListBody>
         <S.ListFoot>
           <S.PageNation></S.PageNation>
-          <S.SubmitButton></S.SubmitButton>
+          <S.SubmitButton onClick={props.onClickMoveToBoardNew}>게시글 등록하기</S.SubmitButton>
         </S.ListFoot>
       </S.ListWrapper>
     </S.Wrapper>
