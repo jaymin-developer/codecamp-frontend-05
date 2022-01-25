@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Button } from "antd";
 
 export const Wrapper = styled.div`
   width: 1200px;
@@ -52,7 +53,6 @@ export const Label = styled.div`
 
 export const InputWrapper = styled.div`
   padding-top: 40px;
-  border
 `;
 
 export const Subject = styled.input`
@@ -84,7 +84,7 @@ export const Zipcode = styled.input`
   border: 1px solid #bdbdbd;
 `;
 
-export const SearchButton = styled.button`
+export const SearchButton = styled(Button)`
   width: 124px;
   height: 52px;
   margin-left: 16px;

@@ -1,5 +1,6 @@
 import * as S from "./CommentWrite.styles";
 import { getMyDate } from "../../../../../commons/libraries/utils";
+import { Modal } from "antd";
 
 export default function CommentWriteUI(props) {
   return (
@@ -55,6 +56,9 @@ export default function CommentWriteUI(props) {
               src="/images/board/detail/delete.png"
               onClick={props.onClickDelete}
             ></S.Delete>
+            <Modal title="확인 메시지" visible={props.isModalVisible} onOk={props.onToggleModal} onCancel={props.onToggleModal}>
+        비밀번호 입력: <input type="password" onChange={props.onChangePassword}></input>
+      </Modal>
           </S.CommentListIcon>
         </S.CommentList>
       ))}

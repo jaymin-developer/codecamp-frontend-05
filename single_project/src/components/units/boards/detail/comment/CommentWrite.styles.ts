@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Button } from "antd";
 
 export const CommentBox = styled.div`
   width: 1200px;

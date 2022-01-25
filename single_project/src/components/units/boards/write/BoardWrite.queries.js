@@ -8,6 +8,12 @@ export const CREATE_BOARD = gql`
       title
       contents
       youtubeUrl
+      boardAddress {
+        _id
+        zipcode
+        address
+        addressDetail
+      }
     }
   }
 `;
@@ -40,6 +46,11 @@ export const FETCH_BOARD = gql`
       contents
       createdAt
       youtubeUrl
+      boardAddress {
+        _id
+        zipcode
+        address
+      }
     }
   }
 `;

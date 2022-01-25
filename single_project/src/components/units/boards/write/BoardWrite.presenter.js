@@ -1,6 +1,9 @@
 import * as S from "./BoardWrite.styles";
+import { Modal } from "antd";
+import DaumPostcode from "react-daum-postcode";
 
 export default function BoardWriteUI(props) {
+  console.log(props.data);
   return (
     <S.Wrapper>
       <S.Title>{props.isEdit ? "게시판 수정" : "게시판 등록"}</S.Title>
@@ -47,7 +50,7 @@ export default function BoardWriteUI(props) {
       <S.InputWrapper>
         <S.Label>내용</S.Label>
         <S.Contents
-          placeholder="내용을 100자 이상 작성해주세요"
+          placeholder="내용을 10자 이상 작성해주세요"
           onChange={props.onChangeContents}
           defaultValue={props.isEdit ? props.data?.fetchBoard.contents : ""}
           style={{
@@ -59,10 +62,22 @@ export default function BoardWriteUI(props) {
       <S.InputWrapper>
         <S.Label>주소</S.Label>
         <S.ZipcodeWrapper>
-          <S.Zipcode type="text" placeholder="07250" />
-          <S.SearchButton>우편번호 검색</S.SearchButton>
+          <S.Zipcode type="text" placeholder="우편번호" value={props.zipcode} />
+          <S.SearchButton onClick={props.onToggleModal}>
+            우편번호 검색
+          </S.SearchButton>
+          {props.isModalVisible && (
+            <Modal
+              title="우편번호 검색"
+              visible={true}
+              onOk={props.onToggleModal}
+              onCancel={props.onToggleModal}
+            >
+              <DaumPostcode onComplete={props.onCompleteDaumPostdode} />
+            </Modal>
+          )}
         </S.ZipcodeWrapper>
-        <S.Address type="text"></S.Address>
+        <S.Address type="text" value={props.address}></S.Address>
         <S.Address type="text"></S.Address>
       </S.InputWrapper>
       <S.InputWrapper>

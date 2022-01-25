@@ -84,116 +84,14 @@ export default function BoardDetail() {
     }
   };
 
-
-  // const onChangeContents = (event) => {
-  //   setContents(event.target.value);
-  //   if (contents !== "" && event.target.value.length <= 100) {
-  //     setLimitNumber(event.target.value.length);
-  //     setErrorContents("");
-  //   } else if (event.target.value.length > 100) {
-  //     alert("100자 이하로 작성해주세요.");
-  //     setLimitNumber(event.target.value.length);
-  //     setErrorContents("100자 이하로 작성해주세요.");
-  //   } else if (event.target.value.length < 10) {
-  //     alert("10자 이상으로 작성해주세요.");
-  //     setLimitNumber(event.target.value.length);
-  //     setErrorContents("10자 이상으로 작성해주세요.");
-  //   }
-  // };
-
-  // function onChangeContents(event) {
-  //   setContents(event.target.value);
-  //   if (event.target.value.length >= 10) {
-  //     setContentsError("");
-  //     setContentsBorderColor("");
-  //   }
-  //   if (writer && password.length >= 4 && event.target.value >= 10) {
-  //     setIsActive(true);
-  //   } else {
-  //     setIsActive(false);
-  //   }
-  // }
-
-  // function onChangeWriter(event) {
-  //   setWriter(event.target.value);
-  //   if (event.target.value !== "") {
-  //     setWriterError("");
-  //     setWriterBorderColor("");
-  //   }
-  //   if (event.target.value && password.length >= 4 && contents.length >= 10) {
-  //     setIsActive(true);
-  //   } else {
-  //     setIsActive(false);
-  //   }
-  // }
-
-  // function onChangePassword(event) {
-  //   setPassword(event.target.value);
-  //   if (event.target.value.length > 3) {
-  //     setPasswordError("");
-  //     setPasswordBorderColor("");
-  //   }
-  //   if (writer && event.target.value.length >= 4 && contents.length >= 10) {
-  //     setIsActive(true);
-  //   } else {
-  //     setIsActive(false);
-  //   }
-  // }
-
-  // async function onClickSubmit() {
-  //   if (!writer) {
-  //     setWriterError("작성자를 입력해주세요.");
-  //     setWriterBorderColor("1px solid red");
-  //   }
-  //   if (password.length < 4) {
-  //     setPasswordError("비밀번호를 4자리 이상 입력해주세요.");
-  //     setPasswordBorderColor("1px solid red");
-  //   }
-  //   if (contents.length < 100) {
-  //     setContentsError("100 이상 입력해주세요.");
-  //     setContentsBorderColor("1px solid red");
-  //   }
-  //   if (writer && password.length >= 4 && contents.length >= 100) {
-  //     try {
-  //       alert("게시글이 등록되었습니다.");
-  //       const result = await createBoardCommentInput({
-  //         variables: {
-  //           createBoardInput: {
-  //             writer: writer,
-  //             password: password,
-  //             contents: contents,
-  //           },
-  //         },
-  //       });
-  //       router.push(`/boards/${result.data.createBoard._id}`);
-  //       // 주소 변경 필요
-  //     } catch (error) {
-  //       console.log(error.message);
-  //     }
-  //   }
-  // }
-
   return (
     <BoardDetailUI
       data={data}
-      // isActive={isActive}
-      // limitNumber={limitNumber}
-      // errorContents={errorContents}
-      // writerError={writerError}
-      // passwordError={passwordError}
-      // contentsError={contentsError}
-      // writerBorderColor={writerBorderColor}
-      // passwordBorderColor={passwordBorderColor}
-      // contentsBorderColor={contentsBorderColor}
       onClickMoveToList={onClickMoveToList}
       onClickMoveToEdit={onClickMoveToEdit}
-      // onChangeWriter={onChangeWriter}
-      // onChangePassword={onChangePassword}
-      // onChangeContents={onChangeContents}
       onClickDelete={onClickDelete}
       onClickLike={onClickLike}
       onClickDislike={onClickDislike}
-      // onClickSubmit={onClickSubmit}
     ></BoardDetailUI>
   );
 }

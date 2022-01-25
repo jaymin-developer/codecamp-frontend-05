@@ -18,6 +18,7 @@ export default function CommentWrite() {
   const [contents, setContents] = useState("");
 
   const [limitNumber, setLimitNumber] = useState(0);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const [createBoardCommentInput] = useMutation(CREATE_BOARD_COMMENT);
   const [deleteBoardComment] = useMutation(DELETE_BOARD_COMMENT);
@@ -25,6 +26,10 @@ export default function CommentWrite() {
   const { data } = useQuery(FETCH_BOARD_COMMENTS, {
     variables: { boardId: router.query.detail },
   });
+
+  const onToggleModal = () => {
+    setIsModalVisible((prev) => !prev);
+  };
 
   function onChangeWriter(event) {
     setWriter(event.target.value);
@@ -83,7 +88,7 @@ export default function CommentWrite() {
   }
 
   async function onClickDelete(event) {
-    const password = prompt("비밀번호를 입력하세요.");
+    const password = onToggleModal(setPassword(event.target.value))
     try {
       await deleteBoardComment({
         variables: {
@@ -97,6 +102,7 @@ export default function CommentWrite() {
           },
         ],
       });
+      
     } catch (error) {
 
     }
@@ -138,11 +144,13 @@ export default function CommentWrite() {
       data={data}
       isActive={isActive}
       limitNumber={limitNumber}
+      isModalVisible={isModalVisible}
       onChangeWriter={onChangeWriter}
       onChangePassword={onChangePassword}
       onChangeContents={onChangeContents}
       onClickSubmit={onClickSubmit}
       onClickDelete={onClickDelete}
+      onToggleModal={onToggleModal}
     ></CommentWriteUI>
   );
 }

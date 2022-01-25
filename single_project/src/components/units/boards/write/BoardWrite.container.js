@@ -14,6 +14,9 @@ export default function BoardWrite(props) {
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
   const [youtubeUrl, setYoutubeUrl] = useState("");
+  const [address, setAddress] = useState("");
+  const [zipcode, setZipcode] = useState("");
+  // const [addressDetail, setAddressDetail] = useState("");
 
   const [writerError, setWriterError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -24,6 +27,7 @@ export default function BoardWrite(props) {
   const [passwordBorderColor, setPasswordBorderColor] = useState("");
   const [titleBorderColor, setTitleBorderColor] = useState("");
   const [contentsBorderColor, setContentsBorderColor] = useState("");
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const [createBoard] = useMutation(CREATE_BOARD);
   const [updateBoard] = useMutation(UPDATE_BOARD);
@@ -31,6 +35,10 @@ export default function BoardWrite(props) {
   const { data } = useQuery(FETCH_BOARD, {
     variables: { boardId: String(router.query.detail) },
   });
+
+  const onToggleModal = () => {
+    setIsModalVisible((prev) => !prev);
+  };
 
   function onChangeWriter(event) {
     setWriter(event.target.value);
@@ -43,7 +51,7 @@ export default function BoardWrite(props) {
       event.target.value &&
       password.length >= 4 &&
       title &&
-      contents.length >= 100
+      contents.length >= 10
     ) {
       setIsActive(true);
     } else {
@@ -61,7 +69,7 @@ export default function BoardWrite(props) {
       writer &&
       event.target.value.length >= 4 &&
       title &&
-      contents.length >= 100
+      contents.length >= 10
     ) {
       setIsActive(true);
     } else {
@@ -79,7 +87,7 @@ export default function BoardWrite(props) {
       writer &&
       password.length >= 4 &&
       event.target.value &&
-      contents.length >= 100
+      contents.length >= 10
     ) {
       setIsActive(true);
     } else {
@@ -89,11 +97,11 @@ export default function BoardWrite(props) {
 
   function onChangeContents(event) {
     setContents(event.target.value);
-    if (event.target.value.length >= 100) {
+    if (event.target.value.length >= 10) {
       setContentsError("");
       setContentsBorderColor("");
     }
-    if (writer && password.length >= 4 && title && event.target.value >= 100) {
+    if (writer && password.length >= 4 && title && event.target.value >= 10) {
       setIsActive(true);
     } else {
       setIsActive(false);
@@ -117,11 +125,11 @@ export default function BoardWrite(props) {
       setTitleError("제목을 입력해주세요.");
       setTitleBorderColor("1px solid red");
     }
-    if (contents.length < 100) {
-      setContentsError("100 이상 입력해주세요.");
+    if (contents.length < 10) {
+      setContentsError("10자 이상 입력해주세요.");
       setContentsBorderColor("1px solid red");
     }
-    if (writer && password.length >= 4 && title && contents.length >= 100) {
+    if (writer && password.length >= 4 && title && contents.length >= 10) {
       try {
         alert("게시글이 등록되었습니다.");
         const result = await createBoard({
@@ -132,6 +140,10 @@ export default function BoardWrite(props) {
               title: title,
               contents: contents,
               youtubeUrl: youtubeUrl,
+              boardAddress: {
+                zipcode,
+                address,
+              },
             },
           },
         });
@@ -172,10 +184,20 @@ export default function BoardWrite(props) {
     }
   }
 
+  const onCompleteDaumPostdode = (data) => {
+    console.log(data);
+    setAddress(data.address);
+    setZipcode(data.zonecode);
+    onToggleModal();
+  };
+
   return (
     <BoardWriteUI
       data={data}
+      address={address}
+      zipcode={zipcode}
       isEdit={props.isEdit}
+      isModalVisible={isModalVisible}
       isActive={isActive}
       writerError={writerError}
       passwordError={passwordError}
@@ -192,6 +214,8 @@ export default function BoardWrite(props) {
       onClickSubmit={onClickSubmit}
       onClickUpdate={onClickUpdate}
       onChangeYoutubeUrl={onChangeYoutubeUrl}
+      onToggleModal={onToggleModal}
+      onCompleteDaumPostdode={onCompleteDaumPostdode}
     ></BoardWriteUI>
   );
 }

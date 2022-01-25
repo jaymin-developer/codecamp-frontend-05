@@ -29,7 +29,9 @@ console.log(props.data)
           <S.Title>{props.data?.fetchBoard.title}</S.Title>
           <S.Contents>{props.data?.fetchBoard.contents}</S.Contents>
           <S.Youtube>
+          {props.data?.fetchBoard.youtubeUrl && (
           <ReactPlayer url={youtubeUrl} playing={true} width={800} height={600}  muted={true} controls={true}/>
+          )}
           </S.Youtube>
           <S.LikeWrapper>
             <S.Like><S.LikeIcon src="/images/board/detail/like.png" onClick={props.onClickLike}/>{props.data?.fetchBoard.likeCount}</S.Like>
