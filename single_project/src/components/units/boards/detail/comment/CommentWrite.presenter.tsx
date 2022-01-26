@@ -5,6 +5,15 @@ import { Modal } from "antd";
 export default function CommentWriteUI(props) {
   return (
     <S.CommentBox>
+       {props.isModalVisible && (
+        <Modal visible={props.isModalVisible} onOk={props.onClickDelete} onCancel={props.onToggleModal}>
+          <div>비밀번호 입력: </div>
+          <S.PasswordInput
+            type="password"
+            onChange={props.onChangeDeletePassword}
+          />
+        </Modal>
+      )}
       <S.CommentInputBox>
         댓글
         <div>
@@ -17,8 +26,9 @@ export default function CommentWriteUI(props) {
             type="password"
             placeholder="비밀번호"
             onChange={props.onChangePassword}
-          ></S.PasswordInput>{" "}
-          별점
+          ></S.PasswordInput>
+          
+        <S.Star onChange={props.onChangeStar} />
         </div>
         <S.InputBox>
           <S.CommentInput
@@ -44,7 +54,7 @@ export default function CommentWriteUI(props) {
           <S.CommentProfile src="/images/board/detail/profile.png" />
           <S.CommentListColumn>
             <S.CommentWriter>
-              {el?.writer} <S.CommentRating>평점 : {el?.rating}</S.CommentRating>
+              {el?.writer} <S.CommentRating value={el?.rating} disabled></S.CommentRating>
             </S.CommentWriter>
             <S.CommentContents>{el?.contents}</S.CommentContents>
             <S.CommentDate>{getMyDate(el?.createdAt)}</S.CommentDate>
@@ -54,34 +64,11 @@ export default function CommentWriteUI(props) {
             <S.Delete
               id={el._id}
               src="/images/board/detail/delete.png"
-              onClick={props.onClickDelete}
+              onClick={props.onClickOpenDeleteModal}
             ></S.Delete>
-            <Modal title="확인 메시지" visible={props.isModalVisible} onOk={props.onToggleModal} onCancel={props.onToggleModal}>
-        비밀번호 입력: <input type="password" onChange={props.onChangePassword}></input>
-      </Modal>
           </S.CommentListIcon>
         </S.CommentList>
       ))}
     </S.CommentBox>
   );
 }
-
-// {props.data?.fetchBoardComments.map((el) => (
-//     <C.Comment key = {el._id}>
-//       <C.CommentInfo>
-//         <C.Writer>{el.writer}</C.Writer>
-//         <C.wrapper>
-//           <C.buttonUpdate onClick={props.updateComment}>수정</C.buttonUpdate>
-//           <C.buttonDelete onClick={props.deleteComment} id={el._id}>삭제</C.buttonDelete>
-//           <div>
-//             <input onChange={props.changePs} placeholder="password" />
-//           </div>
-//         </C.wrapper>
-
-//       </C.CommentInfo>
-//       <C.content>{el.contents}</C.content>
-
-//       <C.date>{(el.createdAt).slice(0,10)}</C.date>
-//     </C.Comment>
-
-//   ))}

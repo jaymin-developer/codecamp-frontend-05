@@ -16,6 +16,8 @@ export default function CommentWrite() {
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
   const [contents, setContents] = useState("");
+  const [star, setStar] = useState(0);
+  const [selectedId, setSelectedId] = useState("");
 
   const [limitNumber, setLimitNumber] = useState(0);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -31,6 +33,9 @@ export default function CommentWrite() {
     setIsModalVisible((prev) => !prev);
   };
 
+  function onChangeStar(value) {
+    setStar(value);
+  }
   function onChangeWriter(event) {
     setWriter(event.target.value);
     if (event.target.value && password.length >= 4 && contents) {
@@ -53,12 +58,21 @@ export default function CommentWrite() {
     setContents(event.target.value);
     if (contents !== "" && event.target.value.length <= 100) {
       setLimitNumber(event.target.value.length);
-      setIsActive(true);
     } else if (event.target.value.length > 100) {
       event.target.value = event.target.value.slice(0, 100);
       alert("100자 이하로 작성해주세요.");
     }
   };
+
+  function onClickOpenDeleteModal(event) {
+    onToggleModal();
+    // @ts-ignore
+    setSelectedId(event.target.id);
+  }
+
+  function onChangeDeletePassword(event) {
+    setPassword(event.target.value);
+  }
 
   async function onClickSubmit() {
     if (writer && password.length >= 4 && contents) {
@@ -67,7 +81,7 @@ export default function CommentWrite() {
         const result = await createBoardCommentInput({
           variables: {
             createBoardCommentInput: {
-              rating: 1.0,
+              rating: star,
               writer: writer,
               password: password,
               contents: contents,
@@ -87,13 +101,12 @@ export default function CommentWrite() {
     }
   }
 
-  async function onClickDelete(event) {
-    const password = onToggleModal(setPassword(event.target.value))
+  async function onClickDelete() {
     try {
       await deleteBoardComment({
         variables: {
           password: password,
-          boardCommentId: event.target.id,
+          boardCommentId: selectedId,
         },
         refetchQueries: [
           {
@@ -102,9 +115,9 @@ export default function CommentWrite() {
           },
         ],
       });
-      
+      onToggleModal()
     } catch (error) {
-
+      alert(error.message);
     }
   }
 
@@ -145,12 +158,15 @@ export default function CommentWrite() {
       isActive={isActive}
       limitNumber={limitNumber}
       isModalVisible={isModalVisible}
+      onClickOpenDeleteModal={onClickOpenDeleteModal}
+      onChangeDeletePassword={onChangeDeletePassword}
       onChangeWriter={onChangeWriter}
       onChangePassword={onChangePassword}
       onChangeContents={onChangeContents}
       onClickSubmit={onClickSubmit}
       onClickDelete={onClickDelete}
       onToggleModal={onToggleModal}
+      onChangeStar={onChangeStar}
     ></CommentWriteUI>
   );
 }

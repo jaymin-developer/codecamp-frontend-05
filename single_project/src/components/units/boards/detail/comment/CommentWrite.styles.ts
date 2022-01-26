@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Button } from "antd";
+import { Rate } from "antd";
 
 export const CommentBox = styled.div`
   width: 1200px;
@@ -29,6 +29,7 @@ export const PasswordInput = styled.input`
   padding-left: 20px;
   width: 180px;
   height: 52px;
+  margin-right: 20px;
 `;
 export const InputBox = styled.div`
   margin-top: 20px;
@@ -104,9 +105,9 @@ export const CommentWriter = styled.div`
   flex-direction: row;
   justify-content: flex-start;
 `;
-export const CommentRating = styled.div`
-  padding-left: 10px;
-  color: orange;
+export const CommentRating = styled(Rate)`
+padding-left: 20px;
+font-size: 12px;
 `;
 export const CommentContents = styled.div`
   padding-top: 4px;
@@ -135,4 +136,7 @@ export const Rewrite = styled.img`
 export const Delete = styled.img`
   width: 18px;
   height: 18px;
+`;
+
+export const Star = styled(Rate)`
 `;

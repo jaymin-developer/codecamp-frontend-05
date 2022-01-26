@@ -23,7 +23,9 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/components/units/boards/write/BoardWrite.styles.js", "src/components/units/boards/write/BoardWrite.queries.js", "src/components/units/boards/write/BoardWrite.presenter.js", "src/components/units/boards/write/BoardWrite.container.js", "src/components/units/boards/write/BoardWrite.presenter.js"  ],
+, 
+// "src/components/units/boards/write/BoardWrite.styles.tsx", "src/components/units/boards/write/BoardWrite.queries.tsx", "src/components/units/boards/write/BoardWrite.presenter.tsx", "src/components/units/boards/write/BoardWrite.container.tsx", src/components/units/boards/write/BoardWrite.presenter.tsxs"  
+],
   "exclude": [
     "node_modules"
   ]
