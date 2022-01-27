@@ -1,9 +1,10 @@
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
 import * as S from "./BoardList.styles";
+import PaginationUI from "./Pagination.presenter";
 
-const FETCH_BOARD = gql`
-  query fetchBoards {
-    fetchBoards {
+const FETCH_BOARDS = gql`
+  query fetchBoards($page: Int) {
+    fetchBoards(page: $page) {
       _id
       title
       writer
@@ -12,8 +13,16 @@ const FETCH_BOARD = gql`
   }
 `;
 
+const FETCH_BOARDS_COUNT = gql`
+  query fetchBoardsCount {
+    fetchBoardsCount
+  }
+`;
+
 export default function BoardsListUI(props) {
-  const { data } = useQuery(FETCH_BOARD);
+  const { data, refetch } = useQuery(FETCH_BOARDS, { variables: { page: 1 } });
+  const { data: dataBoardsCount } = useQuery(FETCH_BOARDS_COUNT);
+  const lastPage = Math.ceil(dataBoardsCount?.fetchBoardsCount / 10);
 
   return (
     <S.Wrapper>
@@ -33,6 +42,11 @@ export default function BoardsListUI(props) {
           <S.SearchDate>YYYY.MM.DD - YYYY.MM.DD</S.SearchDate>
           <S.SearchButton>검색하기</S.SearchButton>
         </S.ListTop>
+        <S.Box>
+          <S.SubmitButton onClick={props.onClickMoveToBoardNew}>
+            게시글 등록하기
+          </S.SubmitButton>
+        </S.Box>
         <S.ListBody>
           <S.Row>
             {/* 인덱스를 키로 주지 말자 */}
@@ -52,8 +66,7 @@ export default function BoardsListUI(props) {
           ))}
         </S.ListBody>
         <S.ListFoot>
-          <S.PageNation></S.PageNation>
-          <S.SubmitButton onClick={props.onClickMoveToBoardNew}>게시글 등록하기</S.SubmitButton>
+          <PaginationUI refetch={refetch} lastPage={lastPage}></PaginationUI>
         </S.ListFoot>
       </S.ListWrapper>
     </S.Wrapper>

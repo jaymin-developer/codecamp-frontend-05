@@ -62,7 +62,7 @@ export const SearchButton = styled.button`
 `;
 export const ListBody = styled.div`
   width: 100%;
-  margin-top: 40px;
+  margin-top: 20px;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
 `;
@@ -140,10 +140,17 @@ export const CreatedAt1 = styled.div`
 export const ListFoot = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
+  justify-content: center;
   padding-top: 40px;
 `;
-export const PageNation = styled.div``;
+
+export const PageNation = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+`;
+
 export const SubmitButton = styled.button`
   width: 171px;
   height: 52px;
@@ -153,5 +160,22 @@ export const SubmitButton = styled.button`
   cursor: pointer;
 
   :hover {
-    background-color: #f5f2fc};
+    background-color: #f5f2fc;
+  }
+`;
+
+export const PageNationDetail = styled.span`
+  color: ${(props) =>
+    props.clickPage === props.index + props.startPage ? "red" : ""};
+  cursor: pointer;
+  display: inline-block;
+  margin-left: 10px;
+  margin-right: 10px;
+`;
+
+export const Box = styled.div`
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
 `;

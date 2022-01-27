@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react";
-import { PageNation } from "../14-boards-pagination/Pagination.styles";
+import { PageNationDetail } from "./BoardList.styles";
 
-export default function Pagination(props) {
+export default function PaginationUI(props) {
   const [startPage, setStartPage] = useState(1);
   const [clickPage, setClickPage] = useState(1);
 
@@ -34,7 +34,7 @@ export default function Pagination(props) {
       {new Array(10).fill(1).map(
         (_, index) =>
           index + startPage > props.lastPage || (
-            <PageNation
+            <PageNationDetail
               clickPage={clickPage}
               startPage={startPage}
               index={index}
@@ -42,8 +42,9 @@ export default function Pagination(props) {
               onClick={onClickPage}
               id={String(index + startPage)}
             >
+              {" "}
               {` ${index + startPage} `}{" "}
-            </PageNation>
+            </PageNationDetail>
           )
       )}
       {startPage + 10 > props.lastPage || (
