@@ -26,6 +26,10 @@ export default function BoardList() {
     router.push("/boards/new");
   }
 
+  function onClickMoveToBoardDetail(event) {
+    router.push(`/boards/${event.target.id}`);
+  }
+
   const { data, refetch } = useQuery(FETCH_BOARDS, { variables: { page: 1 } });
   // 바로 리패치, data가 바껴짐.
 
@@ -37,6 +41,7 @@ export default function BoardList() {
       <BoardsListUI
         data={data}
         onClickMoveToBoardNew={onClickMoveToBoardNew}
+        onClickMoveToBoardDetail={onClickMoveToBoardDetail}
       ></BoardsListUI>
     </>
   );

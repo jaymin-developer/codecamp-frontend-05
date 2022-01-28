@@ -115,13 +115,11 @@ export default function CommentWrite() {
           },
         ],
       });
-      onToggleModal()
+      onToggleModal();
     } catch (error) {
       alert(error.message);
     }
   }
-
-
 
   //   async function onClickUpdate() {
   //     try {
@@ -154,6 +152,7 @@ export default function CommentWrite() {
 
   return (
     <CommentWriteUI
+      router={router}
       data={data}
       isActive={isActive}
       limitNumber={limitNumber}

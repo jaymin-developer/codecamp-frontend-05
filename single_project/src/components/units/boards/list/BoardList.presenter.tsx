@@ -24,6 +24,8 @@ export default function BoardsListUI(props) {
   const { data: dataBoardsCount } = useQuery(FETCH_BOARDS_COUNT);
   const lastPage = Math.ceil(dataBoardsCount?.fetchBoardsCount / 10);
 
+  console.log(dataBoardsCount);
+
   return (
     <S.Wrapper>
       <S.BestTitle>베스트 게시글</S.BestTitle>
@@ -58,9 +60,11 @@ export default function BoardsListUI(props) {
           {data?.fetchBoards.map((el, index) => (
             <S.Row1 key={el._id}>
               {/* 인덱스를 키로 주지 말자 */}
-              <S.Number1>{data?.fetchBoards.length - index}</S.Number1>
-              <S.Title1>{el.writer}</S.Title1>
-              <S.Writer1>{el.title}</S.Writer1>
+              <S.Number1>{dataBoardsCount?.fetchBoardsCount - index}</S.Number1>
+              <S.Title1 id={el._id} onClick={props.onClickMoveToBoardDetail}>
+                {el.title}
+              </S.Title1>
+              <S.Writer1>{el.writer}</S.Writer1>
               <S.CreatedAt1>{el.createdAt.slice(0, 10)}</S.CreatedAt1>
             </S.Row1>
           ))}

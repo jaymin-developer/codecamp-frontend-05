@@ -122,6 +122,10 @@ export const Title1 = styled.div`
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
+  :hover {
+    cursor: pointer;
+    color: blue;
+  }
 `;
 export const Writer1 = styled.div`
   height: 52px;
@@ -166,7 +170,7 @@ export const SubmitButton = styled.button`
 
 export const PageNationDetail = styled.span`
   color: ${(props) =>
-    props.clickPage === props.index + props.startPage ? "red" : ""};
+    props.clickPage === props.index + props.startPage ? "blue" : ""};
   cursor: pointer;
   display: inline-block;
   margin-left: 10px;
