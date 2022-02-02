@@ -14,10 +14,9 @@ export const CREATE_BOARD_COMMENT = gql`
   }
 `;
 
-
 export const FETCH_BOARD_COMMENTS = gql`
-  query fetchBoardComments($boardId: ID!) {
-    fetchBoardComments(boardId: $boardId) {
+  query fetchBoardComments($boardId: ID!, $page: Int) {
+    fetchBoardComments(boardId: $boardId, page: $page) {
       _id
       writer
       rating
@@ -33,24 +32,23 @@ export const DELETE_BOARD_COMMENT = gql`
   }
 `;
 
-// export const Update_Board_Comment = gql`
-//   mutation updateBoardCommentInput(
-//     $updateBoardCommentInput: UpdateBoardCommentInput!
-//     $password: String
-//     $boardCommentId: ID!
-//   ) {
-//     updateBoardCommentInput(
-//       updateBoardCommentInput: $updateBoardCommentInput
-//       password: $password
-//       boardCommentId: $boardCommentId
-//     ) {
-//       _id
-//       writer
-//       contents
-//       rating
-//       user
-//       createdAt
-//       updatedAt
-//     }
-//   }
-// `;
+export const UPDATE_BOARD_COMMENT = gql`
+  mutation updateBoardCommentInput(
+    $updateBoardCommentInput: UpdateBoardCommentInput!
+    $password: String
+    $boardCommentId: ID!
+  ) {
+    updateBoardComment(
+      updateBoardCommentInput: $updateBoardCommentInput
+      password: $password
+      boardCommentId: $boardCommentId
+    ) {
+      _id
+      writer
+      contents
+      rating
+      createdAt
+      updatedAt
+    }
+  }
+`;

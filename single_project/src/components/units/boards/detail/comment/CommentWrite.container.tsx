@@ -6,6 +6,7 @@ import {
   CREATE_BOARD_COMMENT,
   FETCH_BOARD_COMMENTS,
   DELETE_BOARD_COMMENT,
+  UPDATE_BOARD_COMMENT,
 } from "./CommentWrite.queries";
 
 export default function CommentWrite() {
@@ -24,9 +25,10 @@ export default function CommentWrite() {
 
   const [createBoardCommentInput] = useMutation(CREATE_BOARD_COMMENT);
   const [deleteBoardComment] = useMutation(DELETE_BOARD_COMMENT);
+  const [updateBoardComment] = useMutation(UPDATE_BOARD_COMMENT);
 
   const { data } = useQuery(FETCH_BOARD_COMMENTS, {
-    variables: { boardId: router.query.detail },
+    variables: { boardId: String(router.query.detail), page: 1 },
   });
 
   const onToggleModal = () => {
@@ -91,7 +93,7 @@ export default function CommentWrite() {
           refetchQueries: [
             {
               query: FETCH_BOARD_COMMENTS,
-              variables: { boardId: router.query.detail },
+              variables: { boardId: router.query.detail, page: 1 },
             },
           ],
         });
@@ -111,7 +113,7 @@ export default function CommentWrite() {
         refetchQueries: [
           {
             query: FETCH_BOARD_COMMENTS,
-            variables: { boardId: router.query.detail },
+            variables: { boardId: router.query.detail, page: 1 },
           },
         ],
       });
@@ -121,34 +123,26 @@ export default function CommentWrite() {
     }
   }
 
-  //   async function onClickUpdate() {
-  //     try {
-  //       const myVariables = {
-  //         boardId: router.query.detail,
-  //         password,
-  //         updateBoardInput: {},
-  //       };
+  async function onClickCommentUpdate(event) {
+    const myVariables = {
+      boardCommentId: router.query.detail,
+      password,
+      updateBoardCommentInput: {},
+    };
 
-  //       if (title) myVariables.updateBoardInput.title = title;
-  //       if (contents) myVariables.updateBoardInput.contents = contents;
+    if (contents) myVariables.updateBoardCommentInput.contents = contents;
+    if (star) myVariables.updateBoardCommentInput.rating = star;
 
-  //       await updateBoard({
-  //         variables: myVariables,
-  // {
-  //   boardId: router.query.detail,
-  //   password,
-  //   updateBoardInput: {
-  //     title,
-  //     contents,
-  //   },
-  // },
-  //       });
-  //       alert("수정이 완료되었습니다.");
-  //       router.push(`/boards/${router.query.detail}`);
-  //     } catch (error) {
-  //       alert(error.message);
-  //     }
-  //   }
+    try {
+      await updateBoardComment({
+        variables: myVariables,
+      });
+      alert("수정이 완료되었습니다.");
+      router.push(`/boards/${router.query.detail}`);
+    } catch (error) {
+      alert(error.message);
+    }
+  }
 
   return (
     <CommentWriteUI
@@ -166,6 +160,7 @@ export default function CommentWrite() {
       onClickDelete={onClickDelete}
       onToggleModal={onToggleModal}
       onChangeStar={onChangeStar}
+      onClickCommentUpdate={onClickCommentUpdate}
     ></CommentWriteUI>
   );
 }

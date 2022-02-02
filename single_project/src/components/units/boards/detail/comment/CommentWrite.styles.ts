@@ -18,6 +18,24 @@ export const CommentInputBox = styled.div`
   font-size: 18px;
 `;
 
+export const CommentUpdateInputBox = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 14px;
+`;
+
+export const CommentUpdateInputTopBox = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const CommentUpdateInputBodyBox = styled.div`
+  width: 100%;
+`;
+
 export const WriterInput = styled.input`
   padding-left: 20px;
   margin-top: 40px;
@@ -25,10 +43,22 @@ export const WriterInput = styled.input`
   width: 180px;
   height: 52px;
 `;
+
+export const UpdateWriterInput = styled.input`
+  padding-left: 20px;
+  margin-right: 24px;
+  width: 180px;
+`;
 export const PasswordInput = styled.input`
   padding-left: 20px;
   width: 180px;
   height: 52px;
+  margin-right: 20px;
+`;
+
+export const UpdatePasswordInput = styled.input`
+  padding-left: 20px;
+  width: 180px;
   margin-right: 20px;
 `;
 export const InputBox = styled.div`
@@ -43,6 +73,13 @@ export const CommentInput = styled.input`
   height: 108px;
   border: none;
   border-bottom: 1px solid #f2f2f2;
+`;
+
+export const UpdateCommentInput = styled.input`
+  padding: 0px 20px 0px 20px;
+  width: 100%;
+  height: 100%;
+  border: none;
 `;
 export const InputButton = styled.button`
   width: 91px;
@@ -105,9 +142,15 @@ export const CommentWriter = styled.div`
   flex-direction: row;
   justify-content: flex-start;
 `;
+
+export const CommentUpdateWriter = styled.input`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+`;
 export const CommentRating = styled(Rate)`
-padding-left: 20px;
-font-size: 12px;
+  padding-left: 20px;
+  font-size: 12px;
 `;
 export const CommentContents = styled.div`
   padding-top: 4px;
@@ -138,5 +181,21 @@ export const Delete = styled.img`
   height: 18px;
 `;
 
-export const Star = styled(Rate)`
+export const Star = styled(Rate)``;
+
+export const ScrollWrapper = styled.div`
+  height: 700px;
+  overflow: auto;
+`;
+
+export const Box = styled.div`
+  width: 70%;
+  display: flex;
+  justify-content: flex-start;
+`;
+
+export const Box2 = styled.div`
+  width: 30%;
+  display: flex;
+  justify-content: flex-end;
 `;
